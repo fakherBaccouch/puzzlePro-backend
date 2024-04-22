@@ -8,8 +8,8 @@ const { CustomError, hasRequiredFields } = require('../lib/handling_functions')
 
 exports.register = async (req, res, next) => {
     try {
-        hasRequiredFields(req.body, ["name", "email", "password", "phoneNumber","address"])
-        const { name, email, password, phoneNumber,address } = req.body
+        hasRequiredFields(req.body, ["name", "email", "password", "phoneNumber", "address"])
+        const { name, email, password, phoneNumber, address } = req.body
         const userData = await user_model.findOne({ email: email.toLowerCase() }).exec()
         if (userData) {
             throw new CustomError({ statusCode: BAD_REQUEST, message: "email must be unique" })
@@ -37,7 +37,7 @@ exports.login = async (req, res, next) => {
         const user = await user_model.findOne({ email: email.toLowerCase() }).exec()
         if (user != null) {
             if (await bcrypt.compare(password, user.password)) {
-                let token = jwt.sign({ profileId: user._id,role:user.role }, process.env.JWT_SECRET)
+                let token = jwt.sign({ profileId: user._id, role: user.role }, process.env.JWT_SECRET)
                 res.status(OK).json({ token })
             } else {
                 throw new CustomError({ statusCode: BAD_REQUEST, message: "GHALET" })
@@ -71,19 +71,19 @@ exports.updateUserProfile = async (req, res, next) => {
             if (filter[key] === undefined) {
                 delete filter[key];
             }
-           if(filter[key] == address){
+            if (filter[key] == address) {
 
 
-             Object.keys(address).forEach(key=>{
+                Object.keys(address).forEach(key => {
 
-                if (address[key] === undefined) {
-                    delete address[key];
+                    if (address[key] === undefined) {
+                        delete address[key];
 
-                }
-              filter.adresse.key =  address[key] 
-             })
+                    }
+                    filter.adresse.key = address[key]
+                })
 
-           }
+            }
         }
         )
         const user = await user_model.findByIdAndUpdate({ _id: new mongoose.Types.ObjectId(req.verified.profileId) }, filter, { new: true })
