@@ -78,7 +78,7 @@ exports.getPuzzleById = async (req, res, next) => {
 exports.updatePuzzle = async (req, res, next) => {
     try {
         const { id } = req.query;
-        const { name, category, teamName, sizes } = req.body; // Data to update
+        const { name, category, teamName, sizes } = req.body; 
         const filter = { name, category, teamName, sizes }
 
 

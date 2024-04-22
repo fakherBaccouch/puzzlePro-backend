@@ -11,14 +11,14 @@ const orderItemSchema = new mongoose.Schema({
         enum: ['small', 'medium', 'large'],
         required: true
     },
- 
+
     quantity: {
         type: Number,
         required: true
     }
 }, {
-    _id: false, 
-    timestamps: false 
+    _id: false,
+    timestamps: false
 });
 
 const orderSchema = new mongoose.Schema({
@@ -34,7 +34,7 @@ const orderSchema = new mongoose.Schema({
     },
     status: {
         type: String,
-        enum: ['Pending', 'completed',  'Cancelled'],
+        enum: ['Pending', 'completed', 'Cancelled'],
         default: 'Pending'
     },
     address: {
@@ -43,7 +43,7 @@ const orderSchema = new mongoose.Schema({
         state: { type: String },
         zip: { type: String },
         country: { type: String },
-       
+
     },
     orderDate: {
         type: Date,
@@ -53,4 +53,4 @@ const orderSchema = new mongoose.Schema({
     timestamps: true
 });
 
- module.exports  = mongoose.model('order', orderSchema);
+module.exports = mongoose.model('order', orderSchema);
